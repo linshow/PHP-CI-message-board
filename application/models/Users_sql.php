@@ -5,51 +5,43 @@
             parent::__construct();
             $this->load->database();
         }
-        function where_array($array,$table){
-            $query = $this->db->where($array)->get($table);
-            return $query;  
-        }
 
-        function get_user(){
-            $query = $this->db->get('users');
+        function getAllUsers(){
+            $this->db->select('*');
+            $this->db->from('account_info');
+            $query = $this->db->get();
             return $query->result();
         }
 
 
             //新增資料
         function add($arr){
-            $this->db->insert('users',$arr);//users是資料表
+            $this->db->insert('account_info',$arr);
         }
-        // function add($all,$table){
-        //     $this->db->insert($table,$all);
-        // }
-
+       
         //條件 修改
         function where_update($username,$arr){
             $this->db->where('account',$username);
-            $this->db->update('users',$arr);
+            $this->db->update('account_info',$arr);
         }
-        //條件 刪除
-        // function del($array,$table){
-        //     $this->db->where($array)->delete($table);
-        // }
+
         function user_delete($id){
             $this->db->where('id',$id);
-            $this->db->delete('users');
+            $this->db->delete('account_info');
         }
 
         function select($username)
         {
             $this->db->where('account',$username);
             $this->db->select('*');
-            $query = $this->db->get('users');
+            $query = $this->db->get('account_info');
             return $query->result();
         }
         function get_username($id)
 		{
 			$this->db->where('id', $id);
 			$this->db->select('*');	
-			$query = $this->db->get('users');
+			$query = $this->db->get('account_info');
 			return $query->result();
 		}
 
